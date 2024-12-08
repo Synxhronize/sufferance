@@ -11,5 +11,6 @@ All rights reserved.
 Arathain - (https://github.com/Arathain)
 
 This readme will be updated as i learn more about charter as a whole.
+
 IF ANY PARTY INVOLVED WITH CHARTER HAS AN ISSUE WITH THIS, CONTACT ME IMMEDIATELY!
 My discord is supernovae._.
