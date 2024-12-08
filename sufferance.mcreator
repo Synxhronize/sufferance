@@ -1,0 +1,57 @@
+{
+  "mod_elements": [
+    {
+      "name": "DusksEpitaph",
+      "type": "tool",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "dusks_epitaph",
+      "metadata": {
+        "files": [
+          "src/main/java/net/novagalaxy/sufferance/item/DusksEpitaphItem.java",
+          "src/main/resources/assets/sufferance/models/item/dusks_epitaph.json"
+        ]
+      }
+    },
+    {
+      "name": "Sufferance",
+      "type": "tab",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "sufferance",
+      "metadata": {
+        "files": []
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [],
+  "language_map": {
+    "en_us": {
+      "itemGroup.tabsufferance": "Sufferance",
+      "item.sufferance.dusks_epitaph": "Dusk\u0027s Epitaph"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "sufferance",
+    "modName": "Sufferance",
+    "version": "1.0.0",
+    "author": "adminbyte, MCreator",
+    "websiteURL": "https://mcreator.net",
+    "license": "Academic Free License v3.0",
+    "disableForgeVersionCheck": true,
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "forge-1.18.2",
+    "modElementsPackage": "net.novagalaxy.sufferance",
+    "lockBaseModFiles": false
+  },
+  "mcreatorVersion": 202300110610
+}
