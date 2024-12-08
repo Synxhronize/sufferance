@@ -1,0 +1,26 @@
+{
+  "display": {
+    "background": "minecraft:textures/block/stone.png",
+    "icon": {
+      "item": "sufferance:dusks_epitaph"
+    },
+    "title": {
+      "translate": "advancements.the_power_of_divinity.title"
+    },
+    "description": {
+      "translate": "advancements.the_power_of_divinity.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "the_power_of_divinity": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 1000
+  }
+}

@@ -2,5 +2,32 @@
   "parent": "item/handheld",
   "textures": {
     "layer0": "sufferance:items/dusks_epitaph"
-  }
+  },
+    "display": {
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0],
+            "scale":[ 1.25, 1, 1.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 0, 0],
+            "scale":[ 1, 1, 1 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 90, 40 ],
+            "translation": [ 0, 10, 2 ],
+            "scale": [ 2.0, 1.0, 2.0 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 90, 40 ],
+            "translation": [ 0, 10, 2 ],
+            "scale": [ 1.25, 1.0, 1.25 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ 0, 90, 40 ],
+            "translation": [ 0, 10, 2 ],
+            "scale": [ 1.25, 1.0, 1.25 ]
+        }
+    }
 }

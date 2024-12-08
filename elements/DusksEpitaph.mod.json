@@ -26,6 +26,12 @@
     ],
     "immuneToFire": true,
     "stayInGridWhenCrafting": false,
-    "damageOnCrafting": false
+    "damageOnCrafting": false,
+    "onRightClickedInAir": {
+      "name": "DusksEpitaphRightclicked"
+    },
+    "onCrafted": {
+      "name": "DusksEpitaphItemIsCraftedsmelted"
+    }
   }
 }
