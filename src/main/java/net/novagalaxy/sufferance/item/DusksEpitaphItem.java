@@ -1,6 +1,7 @@
 
 package net.novagalaxy.sufferance.item;
 
+import net.novagalaxy.sufferance.procedures.DusksEpitaphRightclickedProcedure;
 import net.novagalaxy.sufferance.procedures.DusksEpitaphItemIsCraftedsmeltedProcedure;
 import net.novagalaxy.sufferance.init.SufferanceModTabs;
 
@@ -42,6 +43,13 @@ public class DusksEpitaphItem extends SwordItem {
 				return Ingredient.of(new ItemStack(Items.NETHERITE_INGOT));
 			}
 		}, 3, -2.7f, new Item.Properties().tab(SufferanceModTabs.TAB_SUFFERANCE).fireResistant());
+	}
+
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
+		InteractionResultHolder<ItemStack> ar = super.use(world, entity, hand);
+		DusksEpitaphRightclickedProcedure.execute(world, entity.getX(), entity.getY(), entity.getZ(), entity, ar.getObject());
+		return ar;
 	}
 
 	@Override
