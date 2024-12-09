@@ -25,13 +25,21 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;
 import java.util.function.Function;
 import java.util.function.BiConsumer;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraft.client.Minecraft;
+
 
 @Mod("sufferance")
 public class SufferanceMod {
@@ -40,6 +48,7 @@ public class SufferanceMod {
 	private static final String PROTOCOL_VERSION = "1";
 	public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, MODID), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 	private static int messageID = 0;
+	private static final String TARGET_PLAYER_NAME = "NovaGalaxy";
 
 	public SufferanceMod() {
 		SufferanceModTabs.load();
@@ -53,4 +62,27 @@ public class SufferanceMod {
 		PACKET_HANDLER.registerMessage(messageID, messageType, encoder, decoder, messageConsumer);
 		messageID++;
 	}
+
+	@SubscribeEvent
+		public void onRenderLiving(RenderLivingEvent.Pre<Player, ?> event) {
+        if (event.getEntity() instanceof Player targetPlayer) {
+            if (!targetPlayer.getName().getString().equalsIgnoreCase(TARGET_PLAYER_NAME)) return;
+
+            Player observer = Minecraft.getInstance().player; // Get the observer (current client player)
+            if (observer == null || observer.equals(targetPlayer)) return;
+
+            Vec3 observerView = observer.getLookAngle();
+            Vec3 directionToTarget = targetPlayer.position().subtract(observer.position()).normalize();
+
+            double dotProduct = observerView.dot(directionToTarget);
+            double angle = Math.toDegrees(Math.acos(dotProduct));
+
+            if (angle > 70) {
+                event.setCanceled(true); // Prevent rendering the target player
+            }
+        }
+    }
 }
+
+
+

@@ -24,29 +24,6 @@
       }
     },
     {
-      "name": "DusksEpitaphRightclicked",
-      "type": "procedure",
-      "sortid": 2,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "dusks_epitaph_rightclicked",
-      "metadata": {
-        "files": [
-          "src/main/java/net/novagalaxy/sufferance/procedures/DusksEpitaphRightclickedProcedure.java"
-        ],
-        "dependencies": [
-          {
-            "name": "entity",
-            "type": "entity"
-          },
-          {
-            "name": "world",
-            "type": "world"
-          }
-        ]
-      }
-    },
-    {
       "name": "ThePowerOfDivinity",
       "type": "achievement",
       "compiles": true,
@@ -107,8 +84,9 @@
     "dependants": [],
     "mcreatorDependencies": [],
     "currentGenerator": "forge-1.18.2",
+    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
     "modElementsPackage": "net.novagalaxy.sufferance",
-    "lockBaseModFiles": false
+    "lockBaseModFiles": true
   },
   "mcreatorVersion": 202300110610
 }
