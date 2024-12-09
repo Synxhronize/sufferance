@@ -18,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 
 import net.novagalaxy.sufferance.init.SufferanceModTabs;
 import net.novagalaxy.sufferance.init.SufferanceModItems;
+import net.novagalaxy.sufferance.init.SufferanceModEnchantments;
 
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.network.NetworkRegistry;
@@ -40,7 +41,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraft.client.Minecraft;
 
-
 @Mod("sufferance")
 public class SufferanceMod {
 	public static final Logger LOGGER = LogManager.getLogger(SufferanceMod.class);
@@ -56,13 +56,15 @@ public class SufferanceMod {
 
 		SufferanceModItems.REGISTRY.register(bus);
 
+		SufferanceModEnchantments.REGISTRY.register(bus);
+
 	}
 
 	public static <T> void addNetworkMessage(Class<T> messageType, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder, BiConsumer<T, Supplier<NetworkEvent.Context>> messageConsumer) {
 		PACKET_HANDLER.registerMessage(messageID, messageType, encoder, decoder, messageConsumer);
 		messageID++;
 	}
-
+	
 	@SubscribeEvent
 		public void onRenderLiving(RenderLivingEvent.Pre<Player, ?> event) {
         if (event.getEntity() instanceof Player targetPlayer) {
@@ -83,6 +85,3 @@ public class SufferanceMod {
         }
     }
 }
-
-
-

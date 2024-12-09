@@ -51,10 +51,10 @@ public class DusksEpitaphRightclickedProcedure {
 					for (Entity entityiterator : _entfound) {
 						if (entity instanceof LivingEntity _entity)
 							_entity.hurt(new DamageSource("divinity").bypassArmor(), 15);
+						world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, (x + 0 + Mth.nextDouble(new Random(), -1, 1) * particleRadius), (y + 0 + Mth.nextDouble(new Random(), -0.5, 0.5)),
+								(z + 0 + Mth.nextDouble(new Random(), -1, 1) * particleRadius), 0, 0, 0);
 					}
 				}
-				world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, (x + 0 + Mth.nextDouble(new Random(), -1, 1) * particleRadius), (y + 0 + Mth.nextDouble(new Random(), -0.5, 0.5)), (z + 0 + Mth.nextDouble(new Random(), -1, 1) * particleRadius), 0, 0,
-						0);
 			}
 			if (world instanceof ServerLevel _level)
 				_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
@@ -67,20 +67,201 @@ public class DusksEpitaphRightclickedProcedure {
 			if (world.isClientSide())
 				Minecraft.getInstance().gameRenderer.displayItemActivation(itemstack);
 		} else {
-			for (int index1 = 0; index1 < (int) (5); index1++) {
-				{
-					Entity _shootFrom = entity;
-					Level projectileLevel = _shootFrom.level;
-					if (!projectileLevel.isClientSide()) {
-						Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
-						_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-						_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
-						projectileLevel.addFreshEntity(_entityToSpawn);
+			{
+				Entity _shootFrom = entity;
+				Level projectileLevel = _shootFrom.level;
+				if (!projectileLevel.isClientSide()) {
+					Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+					_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+					_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+					projectileLevel.addFreshEntity(_entityToSpawn);
+				}
+			}
+			new Object() {
+				private int ticks = 0;
+				private float waitTicks;
+				private LevelAccessor world;
+
+				public void start(LevelAccessor world, int waitTicks) {
+					this.waitTicks = waitTicks;
+					MinecraftForge.EVENT_BUS.register(this);
+					this.world = world;
+				}
+
+				@SubscribeEvent
+				public void tick(TickEvent.ServerTickEvent event) {
+					if (event.phase == TickEvent.Phase.END) {
+						this.ticks += 1;
+						if (this.ticks >= this.waitTicks)
+							run();
 					}
 				}
-				if (entity instanceof Player _player)
-					_player.getCooldowns().addCooldown(itemstack.getItem(), 100);
-			}
+
+				private void run() {
+					{
+						Entity _shootFrom = entity;
+						Level projectileLevel = _shootFrom.level;
+						if (!projectileLevel.isClientSide()) {
+							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							projectileLevel.addFreshEntity(_entityToSpawn);
+						}
+					}
+					if (world instanceof ServerLevel _level)
+						_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+								"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
+					MinecraftForge.EVENT_BUS.unregister(this);
+				}
+			}.start(world, 2);
+			new Object() {
+				private int ticks = 0;
+				private float waitTicks;
+				private LevelAccessor world;
+
+				public void start(LevelAccessor world, int waitTicks) {
+					this.waitTicks = waitTicks;
+					MinecraftForge.EVENT_BUS.register(this);
+					this.world = world;
+				}
+
+				@SubscribeEvent
+				public void tick(TickEvent.ServerTickEvent event) {
+					if (event.phase == TickEvent.Phase.END) {
+						this.ticks += 1;
+						if (this.ticks >= this.waitTicks)
+							run();
+					}
+				}
+
+				private void run() {
+					{
+						Entity _shootFrom = entity;
+						Level projectileLevel = _shootFrom.level;
+						if (!projectileLevel.isClientSide()) {
+							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							projectileLevel.addFreshEntity(_entityToSpawn);
+						}
+					}
+					if (world instanceof ServerLevel _level)
+						_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+								"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
+					MinecraftForge.EVENT_BUS.unregister(this);
+				}
+			}.start(world, 4);
+			new Object() {
+				private int ticks = 0;
+				private float waitTicks;
+				private LevelAccessor world;
+
+				public void start(LevelAccessor world, int waitTicks) {
+					this.waitTicks = waitTicks;
+					MinecraftForge.EVENT_BUS.register(this);
+					this.world = world;
+				}
+
+				@SubscribeEvent
+				public void tick(TickEvent.ServerTickEvent event) {
+					if (event.phase == TickEvent.Phase.END) {
+						this.ticks += 1;
+						if (this.ticks >= this.waitTicks)
+							run();
+					}
+				}
+
+				private void run() {
+					{
+						Entity _shootFrom = entity;
+						Level projectileLevel = _shootFrom.level;
+						if (!projectileLevel.isClientSide()) {
+							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							projectileLevel.addFreshEntity(_entityToSpawn);
+						}
+					}
+					if (world instanceof ServerLevel _level)
+						_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+								"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
+					MinecraftForge.EVENT_BUS.unregister(this);
+				}
+			}.start(world, 6);
+			new Object() {
+				private int ticks = 0;
+				private float waitTicks;
+				private LevelAccessor world;
+
+				public void start(LevelAccessor world, int waitTicks) {
+					this.waitTicks = waitTicks;
+					MinecraftForge.EVENT_BUS.register(this);
+					this.world = world;
+				}
+
+				@SubscribeEvent
+				public void tick(TickEvent.ServerTickEvent event) {
+					if (event.phase == TickEvent.Phase.END) {
+						this.ticks += 1;
+						if (this.ticks >= this.waitTicks)
+							run();
+					}
+				}
+
+				private void run() {
+					{
+						Entity _shootFrom = entity;
+						Level projectileLevel = _shootFrom.level;
+						if (!projectileLevel.isClientSide()) {
+							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							projectileLevel.addFreshEntity(_entityToSpawn);
+						}
+					}
+					if (world instanceof ServerLevel _level)
+						_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+								"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
+					MinecraftForge.EVENT_BUS.unregister(this);
+				}
+			}.start(world, 8);
+			new Object() {
+				private int ticks = 0;
+				private float waitTicks;
+				private LevelAccessor world;
+
+				public void start(LevelAccessor world, int waitTicks) {
+					this.waitTicks = waitTicks;
+					MinecraftForge.EVENT_BUS.register(this);
+					this.world = world;
+				}
+
+				@SubscribeEvent
+				public void tick(TickEvent.ServerTickEvent event) {
+					if (event.phase == TickEvent.Phase.END) {
+						this.ticks += 1;
+						if (this.ticks >= this.waitTicks)
+							run();
+					}
+				}
+
+				private void run() {
+					{
+						Entity _shootFrom = entity;
+						Level projectileLevel = _shootFrom.level;
+						if (!projectileLevel.isClientSide()) {
+							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							projectileLevel.addFreshEntity(_entityToSpawn);
+						}
+					}
+					if (world instanceof ServerLevel _level)
+						_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+								"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
+					MinecraftForge.EVENT_BUS.unregister(this);
+				}
+			}.start(world, 10);
 			new Object() {
 				private int ticks = 0;
 				private float waitTicks;
@@ -112,9 +293,14 @@ public class DusksEpitaphRightclickedProcedure {
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}
+					if (world instanceof ServerLevel _level)
+						_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+								"playsound entity.blaze.shoot master @a ~ ~ ~ 1 0.75");
 					MinecraftForge.EVENT_BUS.unregister(this);
 				}
 			}.start(world, 20);
+			if (entity instanceof Player _player)
+				_player.getCooldowns().addCooldown(itemstack.getItem(), 100);
 		}
 	}
 }
