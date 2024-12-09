@@ -12,14 +12,14 @@ import net.minecraft.world.entity.EquipmentSlot;
 
 import java.util.List;
 
-public class LesserDivinityEnchantment extends Enchantment {
-	public LesserDivinityEnchantment(EquipmentSlot... slots) {
+public class GreaterDivinityEnchantment extends Enchantment {
+	public GreaterDivinityEnchantment(EquipmentSlot... slots) {
 		super(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, slots);
 	}
 
 	@Override
 	protected boolean checkCompatibility(Enchantment ench) {
-		return List.of(SufferanceModEnchantments.GREATER_DIVINITY.get()).contains(ench);
+		return !List.of(SufferanceModEnchantments.LESSER_DIVINITY.get()).contains(ench);
 	}
 
 	@Override

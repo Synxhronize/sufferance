@@ -2,7 +2,7 @@
   "_fv": 39,
   "_type": "enchantment",
   "definition": {
-    "name": "Lesser Divinity",
+    "name": "Greater Divinity",
     "type": "WEAPON",
     "rarity": "VERY_RARE",
     "minLevel": 1,
@@ -10,10 +10,10 @@
     "damageModifier": 0,
     "compatibleEnchantments": [
       {
-        "value": "CUSTOM:GreaterDivinity"
+        "value": "CUSTOM:LesserDivinity"
       }
     ],
-    "excludeEnchantments": false,
+    "excludeEnchantments": true,
     "compatibleItems": [
       {
         "value": "CUSTOM:DusksEpitaph"

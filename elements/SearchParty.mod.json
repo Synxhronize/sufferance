@@ -1,0 +1,26 @@
+{
+  "_fv": 39,
+  "_type": "musicdisc",
+  "definition": {
+    "name": "Search Party",
+    "texture": "sp_music_disc",
+    "description": "NoLongerNull - Search Party",
+    "creativeTab": {
+      "value": "MISC"
+    },
+    "specialInfo": [
+      "Theres small writing on the disc",
+      "\\ \"Bound by the Charter.\"",
+      "Wonder what that means?"
+    ],
+    "hasGlow": true,
+    "music": {
+      "value": "CUSTOM:search_party"
+    },
+    "lengthInTicks": 100,
+    "analogOutput": 14,
+    "onItemInUseTick": {
+      "name": "SearchPartyItemInHandTick"
+    }
+  }
+}

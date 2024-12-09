@@ -1,0 +1,11 @@
+{
+  "search_party": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sufferance:search_party___pressure_game_ost_-_searchlights_final_encounter__",
+        "stream": true
+      }
+    ]
+  }
+}

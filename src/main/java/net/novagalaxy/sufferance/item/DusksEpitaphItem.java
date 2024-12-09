@@ -2,7 +2,6 @@
 package net.novagalaxy.sufferance.item;
 
 import net.novagalaxy.sufferance.procedures.DusksEpitaphRightclickedProcedure;
-import net.novagalaxy.sufferance.procedures.DusksEpitaphItemIsCraftedsmeltedProcedure;
 import net.novagalaxy.sufferance.init.SufferanceModTabs;
 
 import net.minecraft.world.level.Level;
@@ -52,9 +51,4 @@ public class DusksEpitaphItem extends SwordItem {
 		return ar;
 	}
 
-	@Override
-	public void onCraftedBy(ItemStack itemstack, Level world, Player entity) {
-		super.onCraftedBy(itemstack, world, entity);
-		DusksEpitaphItemIsCraftedsmeltedProcedure.execute(entity);
-	}
 }

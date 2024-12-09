@@ -1,14 +1,14 @@
 modLoader="javafml"
 loaderVersion="[40,)"
-license="Academic Free License v3.0"
+license="GNU General Public License version 2 (GPLv2)"
 
 [[mods]]
 modId="sufferance"
-version="1.0.0"
+version="1.3.2"
 displayName="Sufferance"
-credits="Created using mod maker MCreator - https://mcreator.net/about"
-displayURL="https://mcreator.net"
-authors="adminbyte, MCreator"
+credits="NovaGalaxy for creating Sufferance, Arathain for creating Charter"
+displayURL="https://github.com/Synxhronize/sufferance"
+authors="NovaGalaxy"
 
 [[dependencies.sufferance]]
     modId="minecraft"

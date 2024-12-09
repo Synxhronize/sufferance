@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.projectile.SmallFireball;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.DragonFireball;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EntityType;
@@ -50,7 +51,11 @@ public class DusksEpitaphRightclickedProcedure {
 							.collect(Collectors.toList());
 					for (Entity entityiterator : _entfound) {
 						if (entity instanceof LivingEntity _entity)
-							_entity.hurt(new DamageSource("divinity").bypassArmor(), 15);
+							_entity.hurt(new DamageSource("divinity").bypassArmor(), 4);
+						if (!(entityiterator == entity)) {
+							if (entityiterator instanceof LivingEntity _entity)
+								_entity.hurt(new DamageSource("divinity").bypassArmor(), 15);
+						}
 						world.addParticle(ParticleTypes.SOUL_FIRE_FLAME, (x + 0 + Mth.nextDouble(new Random(), -1, 1) * particleRadius), (y + 0 + Mth.nextDouble(new Random(), -0.5, 0.5)),
 								(z + 0 + Mth.nextDouble(new Random(), -1, 1) * particleRadius), 0, 0, 0);
 					}
@@ -66,17 +71,52 @@ public class DusksEpitaphRightclickedProcedure {
 				_player.getCooldowns().addCooldown(itemstack.getItem(), 500);
 			if (world.isClientSide())
 				Minecraft.getInstance().gameRenderer.displayItemActivation(itemstack);
-		} else {
+		} else if (EnchantmentHelper.getItemEnchantmentLevel(SufferanceModEnchantments.GREATER_DIVINITY.get(), itemstack) != 0) {
 			{
 				Entity _shootFrom = entity;
 				Level projectileLevel = _shootFrom.level;
 				if (!projectileLevel.isClientSide()) {
-					Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+					Projectile _entityToSpawn = new Object() {
+						public Projectile getFireball(Level level, double ax, double ay, double az) {
+							AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+							entityToSpawn.xPower = ax;
+							entityToSpawn.yPower = ay;
+							entityToSpawn.zPower = az;
+							return entityToSpawn;
+						}
+					}.getFireball(projectileLevel, 0, (-1), 0);
 					_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
 					_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
 					projectileLevel.addFreshEntity(_entityToSpawn);
 				}
 			}
+			if (world instanceof ServerLevel _level)
+				_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+						"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
+			if (entity instanceof Player _player)
+				_player.getCooldowns().addCooldown(itemstack.getItem(), 2);
+		} else {
+			{
+				Entity _shootFrom = entity;
+				Level projectileLevel = _shootFrom.level;
+				if (!projectileLevel.isClientSide()) {
+					Projectile _entityToSpawn = new Object() {
+						public Projectile getFireball(Level level, double ax, double ay, double az) {
+							AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+							entityToSpawn.xPower = ax;
+							entityToSpawn.yPower = ay;
+							entityToSpawn.zPower = az;
+							return entityToSpawn;
+						}
+					}.getFireball(projectileLevel, 0, (-1), 0);
+					_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
+					_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+					projectileLevel.addFreshEntity(_entityToSpawn);
+				}
+			}
+			if (world instanceof ServerLevel _level)
+				_level.getServer().getCommands().performCommand(new CommandSourceStack(CommandSource.NULL, new Vec3(x, y, z), Vec2.ZERO, _level, 4, "", new TextComponent(""), _level.getServer(), null).withSuppressedOutput(),
+						"playsound entity.blaze.shoot master @a ~ ~ ~ 1 1");
 			new Object() {
 				private int ticks = 0;
 				private float waitTicks;
@@ -102,9 +142,17 @@ public class DusksEpitaphRightclickedProcedure {
 						Entity _shootFrom = entity;
 						Level projectileLevel = _shootFrom.level;
 						if (!projectileLevel.isClientSide()) {
-							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							Projectile _entityToSpawn = new Object() {
+								public Projectile getFireball(Level level, double ax, double ay, double az) {
+									AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+									entityToSpawn.xPower = ax;
+									entityToSpawn.yPower = ay;
+									entityToSpawn.zPower = az;
+									return entityToSpawn;
+								}
+							}.getFireball(projectileLevel, 0, (-1), 0);
 							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, 3, 0);
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}
@@ -139,9 +187,17 @@ public class DusksEpitaphRightclickedProcedure {
 						Entity _shootFrom = entity;
 						Level projectileLevel = _shootFrom.level;
 						if (!projectileLevel.isClientSide()) {
-							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							Projectile _entityToSpawn = new Object() {
+								public Projectile getFireball(Level level, double ax, double ay, double az) {
+									AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+									entityToSpawn.xPower = ax;
+									entityToSpawn.yPower = ay;
+									entityToSpawn.zPower = az;
+									return entityToSpawn;
+								}
+							}.getFireball(projectileLevel, 0, (-1), 0);
 							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 3.5, 0);
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}
@@ -176,9 +232,17 @@ public class DusksEpitaphRightclickedProcedure {
 						Entity _shootFrom = entity;
 						Level projectileLevel = _shootFrom.level;
 						if (!projectileLevel.isClientSide()) {
-							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							Projectile _entityToSpawn = new Object() {
+								public Projectile getFireball(Level level, double ax, double ay, double az) {
+									AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+									entityToSpawn.xPower = ax;
+									entityToSpawn.yPower = ay;
+									entityToSpawn.zPower = az;
+									return entityToSpawn;
+								}
+							}.getFireball(projectileLevel, 0, (-1), 0);
 							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, 4, 0);
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}
@@ -213,9 +277,17 @@ public class DusksEpitaphRightclickedProcedure {
 						Entity _shootFrom = entity;
 						Level projectileLevel = _shootFrom.level;
 						if (!projectileLevel.isClientSide()) {
-							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							Projectile _entityToSpawn = new Object() {
+								public Projectile getFireball(Level level, double ax, double ay, double az) {
+									AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+									entityToSpawn.xPower = ax;
+									entityToSpawn.yPower = ay;
+									entityToSpawn.zPower = az;
+									return entityToSpawn;
+								}
+							}.getFireball(projectileLevel, 0, (-1), 0);
 							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 4.5, 0);
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}
@@ -250,9 +322,17 @@ public class DusksEpitaphRightclickedProcedure {
 						Entity _shootFrom = entity;
 						Level projectileLevel = _shootFrom.level;
 						if (!projectileLevel.isClientSide()) {
-							Projectile _entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, projectileLevel);
+							Projectile _entityToSpawn = new Object() {
+								public Projectile getFireball(Level level, double ax, double ay, double az) {
+									AbstractHurtingProjectile entityToSpawn = new SmallFireball(EntityType.SMALL_FIREBALL, level);
+									entityToSpawn.xPower = ax;
+									entityToSpawn.yPower = ay;
+									entityToSpawn.zPower = az;
+									return entityToSpawn;
+								}
+							}.getFireball(projectileLevel, 0, (-1), 0);
 							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, (float) 2.5, 0);
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, 5, 0);
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}
@@ -287,9 +367,17 @@ public class DusksEpitaphRightclickedProcedure {
 						Entity _shootFrom = entity;
 						Level projectileLevel = _shootFrom.level;
 						if (!projectileLevel.isClientSide()) {
-							Projectile _entityToSpawn = new DragonFireball(EntityType.DRAGON_FIREBALL, projectileLevel);
+							Projectile _entityToSpawn = new Object() {
+								public Projectile getFireball(Level level, double ax, double ay, double az) {
+									AbstractHurtingProjectile entityToSpawn = new DragonFireball(EntityType.DRAGON_FIREBALL, level);
+									entityToSpawn.xPower = ax;
+									entityToSpawn.yPower = ay;
+									entityToSpawn.zPower = az;
+									return entityToSpawn;
+								}
+							}.getFireball(projectileLevel, 0, (-1), 0);
 							_entityToSpawn.setPos(_shootFrom.getX(), _shootFrom.getEyeY() - 0.1, _shootFrom.getZ());
-							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, 1, 0);
+							_entityToSpawn.shoot(_shootFrom.getLookAngle().x, _shootFrom.getLookAngle().y, _shootFrom.getLookAngle().z, 10, 0);
 							projectileLevel.addFreshEntity(_entityToSpawn);
 						}
 					}

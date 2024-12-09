@@ -17,7 +17,20 @@
   },
   "criteria": {
     "the_power_of_divinity": {
-      "trigger": "minecraft:impossible"
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "sufferance:dusks_epitaph"
+            ],
+            "count": {
+              "min": 1,
+              "max": 1
+            }
+          }
+        ]
+      }
     }
   },
   "rewards": {
