@@ -1,7 +1,7 @@
 # Sufferance
 **Covenants, contracts, and regrets.**
 
-A fan recreation and reimagining of the Charter mod, made for the Content SMP (https://www.youtube.com/@doctor4t)
+A fan recreation and reimagining of the Charter mod, made for the Site Callos Server and originating from Content SMP (https://www.youtube.com/@doctor4t - Content SMP | https://www.youtube.com/channel/UCWmMrNO17sqwAoWuro0bqOA - Site Callos)
 
 This will have things new and not from Charter or the Content SMP, as i'm making this exclusively for a server im in. But it will contain things from charter.
 
